@@ -1,6 +1,21 @@
 from queue import Queue
 import threading
 import socket
+print('''
+
+ _____                     _____                                 
+|  __ \                   /  ___|                                
+| |  \/_ __ ___  ___ _ __ \ `--.  ___ __ _ _ __  _ __   ___ _ __ 
+| | __| '__/ _ \/ _ \ '_ \ `--. \/ __/ _` | '_ \| '_ \ / _ \ '__|
+| |_\ \ | |  __/  __/ | | /\__/ / (_| (_| | | | | | | |  __/ |   
+ \____/_|  \___|\___|_| |_\____/ \___\__,_|_| |_|_| |_|\___|_|   
+                                                             ~Madhav Shah            
+''')
+
+
+
+mytarget = input("Enter IP you want to scan: ")
+start_port,end_port = input("Enter the range of the port for eg. 1-10: ").split('-')
 
 
 port_dict = {
@@ -50,7 +65,10 @@ open_port = []
 count = 0
 
 
-target = "172.31.198.130"
+# target = "172.31.198.130"
+target = mytarget
+
+
 def port_scan(port):
     try:
         sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -77,7 +95,7 @@ def worker():
             print(port, "               " ,port_dict[port])
             open_port.append(port)
 
-port_list = range(1,1024)
+port_list = range(int(start_port),int(end_port))
 fill_queue(port_list)
 
 thread_list = []
